@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        id="com.velocitywebworks.cordova.card.io" version="0.2.3">
+    <name>CardIOPlugin</name>
+    <description>Card.IO Plugin</description>
+    <license>Apache 2.0</license>
+    <keywords>card.io</keywords>
+    <js-module src="www/card.io.js" name="card.io">
+        <clobbers target="cordova.plugins.cardio" />
+    </js-module>
+    <platform name="android">
+            
+        <source-file src="src/android/com/velocitywebworks/plugins/cardio/CardIOMain.java" 
+            target-dir="src/com/velocitywebworks/plugins/cardio/" />            
+        <source-file src="src/android/com/velocitywebworks/plugins/cardio/CardIOPlugin.java" 
+            target-dir="src/com/velocitywebworks/plugins/cardio/" />
+                
+        <config-file target="config.xml" parent="/*">        
+            <feature name="CardIOPlugin">
+                <param name="android-package" value="com.velocitywebworks.plugins.cardio.CardIOPlugin"/>
+            </feature>
+        </config-file>
+        
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+            <activity android:configChanges="orientation|keyboardHidden" android:name="com.velocitywebworks.plugins.cardio.CardIOMain" android:screenOrientation="landscape" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" android:windowSoftInputMode="stateAlwaysHidden">
+                <intent-filter>
+                    <action android:name="com.velocitywebworks.plugins.cardio.SCAN" />
+                    <category android:name="android.intent.category.DEFAULT" />
+                </intent-filter>
+            </activity>
+            <activity android:configChanges="orientation|keyboardHidden" android:name="io.card.payment.CardIOActivity" android:screenOrientation="landscape" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" android:windowSoftInputMode="stateAlwaysHidden">
+                <intent-filter>
+                    <action android:name="android.intent.action.VIEW" />
+                    <category android:name="android.intent.category.DEFAULT" />
+                </intent-filter>
+            </activity>
+        </config-file>
+        
+    </platform>
+    <platform name="ios">
+        <config-file target="config.xml" parent="/*">
+            <feature name="CardIOPlugin">
+                <param name="ios-package" value="CDVDevice"/>
+            </feature>
+        </config-file>
+    
+        <header-file src="src/ios/CDVDevice.h" />
+        <source-file src="src/ios/CDVDevice.m" />
+    </platform>
+</plugin>
