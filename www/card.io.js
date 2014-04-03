@@ -11,10 +11,13 @@
 
 //set your configurations here
 var cardIOConfig = {
-		'apiKey': 'YOUR_API_KEY_HERE',
-		'expiry': true,
-		'cvv': true,
-		'zip':false,
+	'apiKey': 'NOTSET',
+	'expiry': false,
+	'cvv': false,
+	'zip': false,
+    'confirm': true,
+    'showLogo': true,
+    'suppressManual': true
 };
 
 
@@ -22,6 +25,37 @@ var CardIOPlugin = function() {};
   
 CardIOPlugin.prototype.setKey = function(key) {
     cardIOConfig.apiKey = key;
+    console.log(cardIOConfig);
+};
+
+CardIOPlugin.prototype.requireExpiry = function(b) {
+    cardIOConfig.expiry = b;
+    console.log(cardIOConfig);
+};
+
+CardIOPlugin.prototype.requireCVV = function(b) {
+    cardIOConfig.cvv = b;
+    console.log(cardIOConfig);
+};
+
+CardIOPlugin.prototype.requireZip = function(b) {
+    cardIOConfig.zip = b;
+    console.log(cardIOConfig);
+};
+
+CardIOPlugin.prototype.requireConfirmation = function(b) {
+    cardIOConfig.confirm = b;
+    console.log(cardIOConfig);
+};
+
+CardIOPlugin.prototype.showLogo = function(b) {
+    cardIOConfig.showLogo = b;
+    console.log(cardIOConfig);
+};
+
+CardIOPlugin.prototype.suppressManual = function(b) {
+    cardIOConfig.showLogo = b;
+    console.log(cardIOConfig);
 };
 
 CardIOPlugin.prototype.scan = function(success, fail) {

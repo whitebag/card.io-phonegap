@@ -8,7 +8,14 @@
     <js-module src="www/card.io.js" name="card.io">
         <clobbers target="cordova.plugins.cardio" />
     </js-module>
+    
     <platform name="android">
+            
+        <lib-file src="libs/card.io.jar" arch="device" />
+        <lib-file src="libs/armeabi-v7a" arch="device" />
+        <lib-file src="libs/armeabi" arch="device" />
+        <lib-file src="libs/mips" arch="device" />
+        <lib-file src="libs/x86" arch="device" />
             
         <source-file src="src/android/com/velocitywebworks/plugins/cardio/CardIOMain.java" 
             target-dir="src/com/velocitywebworks/plugins/cardio/" />            
@@ -28,12 +35,13 @@
                     <category android:name="android.intent.category.DEFAULT" />
                 </intent-filter>
             </activity>
-            <activity android:configChanges="orientation|keyboardHidden" android:name="io.card.payment.CardIOActivity" android:screenOrientation="landscape" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" android:windowSoftInputMode="stateAlwaysHidden">
-                <intent-filter>
-                    <action android:name="android.intent.action.VIEW" />
-                    <category android:name="android.intent.category.DEFAULT" />
-                </intent-filter>
-            </activity>
+            <activity android:name="io.card.payment.CardIOActivity" android:configChanges="keyboardHidden|orientation" />
+            <activity android:name="io.card.payment.DataEntryActivity" />
+            
+            <uses-permission android:name="android.permission.VIBRATE" />
+            <uses-feature android:name="android.hardware.camera" android:required="false" />
+            <uses-feature android:name="android.hardware.camera.autofocus" android:required="false" />
+            <uses-feature android:name="android.hardware.camera.flash" android:required="false" />
         </config-file>
         
     </platform>

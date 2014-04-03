@@ -20,6 +20,9 @@ public class CardIOPlugin extends CordovaPlugin {
 	public static Boolean expiry;
 	public static Boolean cvv;
 	public static Boolean zip;
+	public static Boolean confirm;
+	public static Boolean showLogo;
+	public static Boolean suppressManual;
 
 	@Override
 	public boolean execute(String action, JSONArray args,
@@ -35,6 +38,9 @@ public class CardIOPlugin extends CordovaPlugin {
 			expiry = config.getBoolean("expiry");
 			cvv = config.getBoolean("cvv");
 			zip = config.getBoolean("zip");
+			confirm = config.getBoolean("confirm");
+			showLogo = config.getBoolean("showLogo");
+			suppressManual = config.getBoolean("suppressManual");
 
 			Intent scanIntent = new Intent(cordova.getActivity(),
 					CardIOMain.class);

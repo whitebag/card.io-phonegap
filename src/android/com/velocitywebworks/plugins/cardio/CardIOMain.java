@@ -36,7 +36,10 @@ public class CardIOMain extends Activity {
 	    // customize these values to suit your needs.
 	    scanIntent.putExtra(CardIOActivity.EXTRA_REQUIRE_EXPIRY, CardIOPlugin.expiry);
 	    scanIntent.putExtra(CardIOActivity.EXTRA_REQUIRE_CVV, CardIOPlugin.cvv); 
-	    scanIntent.putExtra(CardIOActivity.EXTRA_REQUIRE_ZIP, CardIOPlugin.zip); 
+	    scanIntent.putExtra(CardIOActivity.EXTRA_REQUIRE_POSTAL_CODE, CardIOPlugin.zip); 
+	    scanIntent.putExtra(CardIOActivity.EXTRA_SUPPRESS_CONFIRMATION, CardIOPlugin.confirm);
+	    scanIntent.putExtra(CardIOActivity.EXTRA_SUPPRESS_MANUAL_ENTRY, CardIOPlugin.suppressManual);
+	    scanIntent.putExtra(CardIOActivity.EXTRA_USE_CARDIO_LOGO, CardIOPlugin.showLogo);
 
 	    // MY_SCAN_REQUEST_CODE is arbitrary and is only used within this activity.
 	    startActivityForResult(scanIntent, MY_SCAN_REQUEST_CODE);		
