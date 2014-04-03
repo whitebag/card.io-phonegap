@@ -46,13 +46,22 @@
         
     </platform>
     <platform name="ios">
+        
+        <lib-file src="libs/libCardIO.a" arch="device" />
+        
         <config-file target="config.xml" parent="/*">
             <feature name="CardIOPlugin">
-                <param name="ios-package" value="CDVDevice"/>
+                <param name="ios-package" value="CardIOPlugin"/>
             </feature>
         </config-file>
     
-        <header-file src="src/ios/CDVDevice.h" />
-        <source-file src="src/ios/CDVDevice.m" />
+        <header-file src="src/ios/CardIOViewDelegate.h" />
+        <header-file src="src/ios/CardIO.h" />
+        <header-file src="src/ios/CardIOCreditCardInfo.h" />
+        <header-file src="src/ios/CardIOPaymentViewController.h" />
+        <header-file src="src/ios/CardIOPaymentViewControllerDelegate.h" />
+        <header-file src="src/ios/CardIOPlugin.h" />
+        <header-file src="src/ios/CardIOView.h" />
+        <source-file src="src/ios/CardIOPlugin.m" />
     </platform>
 </plugin>
