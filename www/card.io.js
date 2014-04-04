@@ -61,7 +61,7 @@ CardIOPlugin.prototype.suppressManual = function(b) {
 CardIOPlugin.prototype.scan = function(success, fail) {
     return cordova.exec(function(args) {
     	console.log("card.io scanning completed", args);
-        success(args[0]);
+        success(args.card_number && args || args[0]);
     }, function(args) {
     	console.log("card.io scanning Failed");
         fail(args);
