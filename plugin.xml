@@ -47,7 +47,6 @@
     </platform>
     <platform name="ios">
         <framework src="libc++.dylib" />        
-        <lib-file src="libs/libCardIO.a" framework="true" />
         
         <config-file target="config.xml" parent="/*">
             <feature name="CardIOPlugin">
@@ -62,6 +61,7 @@
         <header-file src="src/ios/CardIOPaymentViewControllerDelegate.h" />
         <header-file src="src/ios/CardIOPlugin.h" />
         <header-file src="src/ios/CardIOView.h" />
-        <source-file src="src/ios/CardIOPlugin.m" />
+        <source-file src="src/ios/CardIOPlugin.m" compiler-flags="-fmodules" />
+        <source-file src="libs/libCardIO.a" framework="true" compiler-flags="-fmodules" />
     </platform>
 </plugin>
