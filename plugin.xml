@@ -46,8 +46,8 @@
         
     </platform>
     <platform name="ios">
-        
-        <lib-file src="libs/libCardIO.a" arch="device" />
+        <framework src="libc++.dylib" />        
+        <lib-file src="libs/libCardIO.a" framework="true" />
         
         <config-file target="config.xml" parent="/*">
             <feature name="CardIOPlugin">
