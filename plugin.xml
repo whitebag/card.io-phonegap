@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
         id="com.velocitywebworks.cordova.card.io" version="0.2.3">
+    
     <name>CardIOPlugin</name>
     <description>Card.IO Plugin</description>
     <license>Apache 2.0</license>
     <keywords>card.io</keywords>
+    
     <js-module src="www/card.io.js" name="card.io">
         <clobbers target="cordova.plugins.cardio" />
     </js-module>
@@ -22,7 +24,7 @@
         <source-file src="src/android/com/velocitywebworks/plugins/cardio/CardIOPlugin.java" 
             target-dir="src/com/velocitywebworks/plugins/cardio/" />
                 
-        <config-file target="config.xml" parent="/*">        
+        <config-file target="res/xml/config.xml" parent="/*">        
             <feature name="CardIOPlugin">
                 <param name="android-package" value="com.velocitywebworks.plugins.cardio.CardIOPlugin"/>
             </feature>
