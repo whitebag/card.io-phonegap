@@ -1,12 +1,13 @@
 //
 //  CardIOPaymentViewController.h
-//  Version 3.6.4
+//  Version 5.0.0
 //
-//  Copyright (c) 2011-2014 PayPal. All rights reserved.
+//  See the file "LICENSE.md" for the full license governing this code.
 //
 
 #import <UIKit/UIKit.h>
 #import "CardIOPaymentViewControllerDelegate.h"
+#import "CardIODetectionMode.h"
 
 /// CardIOPaymentViewController is one of two main entry points into the card.io SDK.
 /// @see CardIOView
@@ -26,10 +27,6 @@
 /// @return Properly initialized CardIOPaymentViewController.
 - (id)initWithPaymentDelegate:(id<CardIOPaymentViewControllerDelegate>)aDelegate scanningEnabled:(BOOL)scanningEnabled;
 
-/// The application token you obtained from the card.io website.
-/// If not set before presenting the view controller, an exception will be thrown.
-@property(nonatomic, copy, readwrite) NSString *appToken;
-
 /// The preferred language for all strings appearing in the user interface.
 /// If not set, or if set to nil, defaults to the device's current language setting.
 ///
@@ -42,7 +39,7 @@
 /// E.g., specifying "en" on a device set to "English" and "United Kingdom" will result in "en_GB".
 ///
 /// These localizations are currently included:
-/// ar,da,de,en,en_AU,en_GB,en_SV,es,es_MX,fr,he,it,ja,ko,ms,nb,nl,pl,pt,pt_BR,ru,sv,tr,zh-Hans,zh-Hant_HK,zh-Hant_TW.
+/// ar,da,de,en,en_AU,en_GB,en_SE,es,es_MX,fr,he,is,it,ja,ko,ms,nb,nl,pl,pt,pt_BR,ru,sv,th,tr,zh-Hans,zh-Hant,zh-Hant_TW.
 @property(nonatomic, copy, readwrite) NSString *languageOrLocale;
 
 /// If YES, the status bar's style will be kept as whatever your app has set it to.
@@ -81,6 +78,43 @@
 /// Defaults to NO.
 @property(nonatomic, assign, readwrite) BOOL suppressScannedCardImage;
 
+/// Mask the card number digits as they are manually entered by the user. Defaults to NO.
+@property(nonatomic, assign, readwrite) BOOL maskManualEntryDigits;
+
+/// Set the scan instruction text. If nil, use the default text. Defaults to nil.
+/// Use newlines as desired to control the wrapping of text onto multiple lines.
+@property(nonatomic, copy, readwrite) NSString *scanInstructions;
+
+/// Hide the PayPal or card.io logo in the scan view. Defaults to NO.
+@property(nonatomic, assign, readwrite) BOOL hideCardIOLogo;
+
+/// A custom view that will be overlaid atop the entire scan view. Defaults to nil.
+/// If you set a scanOverlayView, be sure to:
+///
+///   * Consider rotation. Be sure to test on the iPad with rotation both enabled and disabled.
+///     To make rotation synchronization easier, whenever a scanOverlayView is set, and card.io does an
+///     in-place rotation (rotates its UI elements relative to their containers), card.io will generate
+///     rotation notifications; see CardIOScanningOrientationDidChangeNotification
+///     and associated userInfo key documentation below.
+///     As with UIKit, the initial rotation is always UIInterfaceOrientationPortrait.
+///
+///   * Be sure to pass touches through to the superview as appropriate. Note that the entire camera
+///     preview responds to touches (triggers refocusing). Test the light button and the toolbar buttons.
+///
+///   * Minimize animations, redrawing, or any other CPU/GPU/memory intensive activities
+@property(nonatomic, retain, readwrite) UIView *scanOverlayView;
+
+/// CardIODetectionModeCardImageAndNumber: the scanner must successfully identify the card number.
+/// CardIODetectionModeCardImageOnly: don't scan the card, just detect a credit-card-shaped card.
+/// CardIODetectionModeAutomatic: start as CardIODetectionModeCardImageAndNumber, but fall back to
+///        CardIODetectionModeCardImageOnly if scanning has not succeeded within a reasonable time.
+/// Defaults to CardIODetectionModeCardImageAndNumber.
+///
+/// @note Images returned in CardIODetectionModeCardImageOnly mode may be less focused, to accomodate scanning
+///       cards that are dominantly white (e.g., the backs of drivers licenses), and thus
+///       hard to calculate accurate focus scores for.
+@property(nonatomic, assign, readwrite) CardIODetectionMode detectionMode;
+
 /// Set to NO if you don't need to collect the card expiration. Defaults to YES.
 @property(nonatomic, assign, readwrite) BOOL collectExpiry;
 
@@ -89,9 +123,11 @@
 
 /// Set to YES if you need to collect the billing postal code. Defaults to NO.
 @property(nonatomic, assign, readwrite) BOOL collectPostalCode;
-/// Deprecated.
-/// @see collectPostalCode
-@property(nonatomic, assign, readwrite, getter=collectPostalCode, setter=setCollectPostalCode:) BOOL collectZip __attribute__((deprecated("Use collectPostalCode instead.")));
+
+/// Set to NO if you don't want the camera to try to scan the card expiration.
+/// Applies only if collectExpiry is also YES.
+/// Defaults to YES.
+@property(nonatomic, assign, readwrite) BOOL scanExpiry;
 
 /// Set to YES to show the card.io logo over the camera view instead of the PayPal logo. Defaults to NO.
 @property(nonatomic, assign, readwrite) BOOL useCardIOLogo;
@@ -105,28 +141,32 @@
 
 /// Set to YES to prevent card.io from showing its "Enter Manually" button. Defaults to NO.
 ///
-/// @note If +canReadCardWithCamera returns false, then if card.io is presented it will
+/// @note If [CardIOUtilities canReadCardWithCamera] returns false, then if card.io is presented it will
 ///       automatically display its manual entry screen.
 ///       Therefore, if you want to prevent users from *ever* seeing card.io's manual entry screen,
-///       you should first check +canReadCardWithCamera before initing the view controller.
+///       you should first check [CardIOUtilities canReadCardWithCamera] before initing the view controller.
 @property(nonatomic, assign, readwrite) BOOL disableManualEntryButtons;
 
 /// Access to the delegate.
 @property(nonatomic, weak, readwrite) id<CardIOPaymentViewControllerDelegate> paymentDelegate;
 
-/// Determine whether this device supports camera-based card scanning, considering
-/// factors such as hardware support and OS version.
-///
-/// card.io automatically provides manual entry of cards as a fallback,
-/// so it is not typically necessary for your app to check this.
-///
-/// @return YES iff the user's device supports camera-based card scanning.
-+ (BOOL)canReadCardWithCamera;
+/// Name for orientation change notification.
+extern NSString * const CardIOScanningOrientationDidChangeNotification;
 
-/// Please send the output of this method with any technical support requests.
-/// @return Human-readable version of this library.
-+ (NSString *)libraryVersion;
+/// userInfo key for orientation change notification, to get the current scanning orientation.
+///
+/// Returned as an NSValue wrapping a UIDeviceOrientation. Sample extraction code:
+/// @code
+///     NSValue *wrappedOrientation = notification.userInfo[CardIOCurrentScanningOrientation];
+///     UIDeviceOrientation scanningOrientation = UIDeviceOrientationPortrait; // set a default value just to be safe
+///     [wrappedOrientation getValue:&scanningOrientation];
+///     // use scanningOrientation...
+/// @endcode
+extern NSString * const CardIOCurrentScanningOrientation;
 
-/// Previous versions of card.io provided an informative message when the user first launched card.io.
-@property(nonatomic, assign, readwrite) BOOL showsFirstUseAlert __attribute__((deprecated("The former first-time alert is no more.")));
+/// userInfo key for orientation change notification, to get the duration of the card.io rotation animations.
+///
+/// Returned as an NSNumber wrapping an NSTimeInterval (i.e. a double).
+extern NSString * const CardIOScanningOrientationAnimationDuration;
+
 @end

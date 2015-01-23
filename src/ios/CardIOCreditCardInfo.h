@@ -1,8 +1,8 @@
 //
 //  CardIOCreditCardInfo.h
-//  Version 3.6.4
+//  Version 5.0.0
 //
-//  Copyright (c) 2011-2014 PayPal. All rights reserved.
+//  See the file "LICENSE.md" for the full license governing this code.
 //
 
 #import <Foundation/Foundation.h>
@@ -10,9 +10,6 @@
 
 /// CardIOCreditCardType Identifies type of card.
 typedef NS_ENUM(NSInteger, CardIOCreditCardType) {
-  /// Deprecated.
-  /// @see CardIOCreditCardTypeUnrecognized, CardIOCreditCardTypeAmbiguous
-  CardIOCreditCardTypeUnknown __attribute__((deprecated("Use CardIOCreditCardTypeUnrecognized or CardIOCreditCardTypeAmbiguous instead."))) = 0,
   /// The card number does not correspond to any recognizable card type.
   CardIOCreditCardTypeUnrecognized = 0,
   /// The card number corresponds to multiple card types (e.g., when only a few digits have been entered).
@@ -55,13 +52,11 @@ typedef NS_ENUM(NSInteger, CardIOCreditCardType) {
 /// @note May be nil, if postal code information was not requested.
 @property(nonatomic, copy, readwrite) NSString *postalCode;
 
-/// Deprecated.
-/// @see postalCode
-@property(nonatomic, copy, readwrite, getter=postalCode, setter=setPostalCode:) NSString *zip __attribute__((deprecated("Use postalCode instead.")));
-
 /// Was the card number scanned (as opposed to entered manually)?
 @property(nonatomic, assign, readwrite) BOOL scanned;
 
+/// The rectified card image; usually 428x270.
+@property(nonatomic, strong, readwrite) UIImage *cardImage;
 
 /// Derived from cardNumber.
 /// @note CardIOCreditInfo objects returned by either of the delegate methods
