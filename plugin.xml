@@ -56,14 +56,17 @@
             </feature>
         </config-file>
     
-        <header-file src="src/ios/CardIOViewDelegate.h" />
         <header-file src="src/ios/CardIO.h" />
         <header-file src="src/ios/CardIOCreditCardInfo.h" />
+        <header-file src="src/ios/CardIODetectionMode.h" />
+        <header-file src="src/ios/CardIOViewDelegate.h" />
         <header-file src="src/ios/CardIOPaymentViewController.h" />
         <header-file src="src/ios/CardIOPaymentViewControllerDelegate.h" />
         <header-file src="src/ios/CardIOPlugin.h" />
-        <header-file src="src/ios/CardIOView.h" />
         <source-file src="src/ios/CardIOPlugin.m" compiler-flags="-fmodules" />
+        <header-file src="src/ios/CardIOUtilities.h" />
+        <header-file src="src/ios/CardIOView.h" />
+        <header-file src="src/ios/CardIOViewDelegate.h" />
         <source-file src="libs/libCardIO.a" framework="true" compiler-flags="-fmodules" />
     </platform>
 </plugin>
