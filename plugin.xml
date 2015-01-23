@@ -59,7 +59,6 @@
         <header-file src="src/ios/CardIO.h" />
         <header-file src="src/ios/CardIOCreditCardInfo.h" />
         <header-file src="src/ios/CardIODetectionMode.h" />
-        <header-file src="src/ios/CardIOViewDelegate.h" />
         <header-file src="src/ios/CardIOPaymentViewController.h" />
         <header-file src="src/ios/CardIOPaymentViewControllerDelegate.h" />
         <header-file src="src/ios/CardIOPlugin.h" />
