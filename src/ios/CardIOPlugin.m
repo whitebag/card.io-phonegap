@@ -31,10 +31,8 @@
 - (void)scan:(CDVInvokedUrlCommand *)command {
     self.scanCallbackId = command.callbackId;
     NSDictionary* options = [command.arguments objectAtIndex:0];
-    NSString *appToken = options[@"apiKey"];
     
     self.paymentViewController = [[CardIOPaymentViewController alloc] initWithPaymentDelegate:self];
-    self.paymentViewController.appToken = appToken;
     
     NSNumber *collectCVV = [options objectForKey:@"cvv"];
     if(collectCVV) {
@@ -66,12 +64,12 @@
 }
 
 - (void)canScan:(CDVInvokedUrlCommand *)command {
-    BOOL canScan = [CardIOPaymentViewController canReadCardWithCamera];
+    BOOL canScan = [CardIOUtilities canReadCardWithCamera];
     [self sendSuccessTo:command.callbackId withObject:[NSNumber numberWithBool:canScan]];
 }
 
 - (void)version:(CDVInvokedUrlCommand *)command {
-    NSString *version = [CardIOPaymentViewController libraryVersion];
+    NSString *version = [CardIOUtilities libraryVersion];
     
     if(version) {
         [self sendSuccessTo:command.callbackId withObject:version];
