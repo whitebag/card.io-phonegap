@@ -31,7 +31,7 @@ public class CardIOMain extends Activity {
 		Intent scanIntent = new Intent(CardIOMain.this, CardIOActivity.class);
 
 	    // required for authentication with card.io
-	    scanIntent.putExtra(CardIOActivity.EXTRA_APP_TOKEN, CardIOPlugin.cardIOAPIKey);
+	    ////scanIntent.putExtra(CardIOActivity.EXTRA_APP_TOKEN, CardIOPlugin.cardIOAPIKey);
 
 	    // customize these values to suit your needs.
 	    scanIntent.putExtra(CardIOActivity.EXTRA_REQUIRE_EXPIRY, CardIOPlugin.expiry);

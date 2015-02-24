@@ -16,7 +16,7 @@ public class CardIOPlugin extends CordovaPlugin {
 
 	public CallbackContext callbackContext;
 	public static JSONArray mCreditcardNumber = null;
-	public static String cardIOAPIKey;
+	////public static String cardIOAPIKey;
 	public static Boolean expiry;
 	public static Boolean cvv;
 	public static Boolean zip;
@@ -34,7 +34,7 @@ public class CardIOPlugin extends CordovaPlugin {
 		try {
 			// set configurations
 			JSONObject config = args.getJSONObject(0);
-			cardIOAPIKey = config.getString("apiKey");
+			////cardIOAPIKey = config.getString("apiKey");
 			expiry = config.getBoolean("expiry");
 			cvv = config.getBoolean("cvv");
 			zip = config.getBoolean("zip");
