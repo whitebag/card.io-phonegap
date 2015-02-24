@@ -13,8 +13,6 @@
     
     <platform name="android">
             
-        <lib-file src="libs/card.io.jar" arch="device" />
-            
         <source-file src="src/android/com/velocitywebworks/plugins/cardio/CardIOMain.java" 
             target-dir="src/com/velocitywebworks/plugins/cardio/" />            
         <source-file src="src/android/com/velocitywebworks/plugins/cardio/CardIOPlugin.java" 

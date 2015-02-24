@@ -73,8 +73,8 @@ public class CardIOMain extends Activity {
 		                
 		            }
 
-		            if (scanResult.zip != null) {
-		            	j.put("zip",scanResult.zip);
+		            if (scanResult.postalCode != null) {
+		            	j.put("zip",scanResult.postalCode);
 		            }
 					
 				} catch (JSONException e) {
