@@ -13,12 +13,6 @@
     
     <platform name="android">
             
-        <lib-file src="libs/card.io.jar" arch="device" />
-        <lib-file src="libs/armeabi-v7a" arch="device" />
-        <lib-file src="libs/armeabi" arch="device" />
-        <lib-file src="libs/mips" arch="device" />
-        <lib-file src="libs/x86" arch="device" />
-            
         <source-file src="src/android/com/velocitywebworks/plugins/cardio/CardIOMain.java" 
             target-dir="src/com/velocitywebworks/plugins/cardio/" />            
         <source-file src="src/android/com/velocitywebworks/plugins/cardio/CardIOPlugin.java" 
@@ -46,38 +40,5 @@
             <uses-feature android:name="android.hardware.camera.flash" android:required="false" />
         </config-file>
         
-    </platform>
-    <platform name="ios">
-        <config-file target="config.xml" parent="/*">
-            <feature name="CardIOPlugin">
-                <param name="ios-package" value="CardIOPlugin"/>
-            </feature>
-        </config-file>
-    
-        <header-file src="src/ios/CardIO.h" />
-        <header-file src="src/ios/CardIOCreditCardInfo.h" />
-        <header-file src="src/ios/CardIODetectionMode.h" />
-        <header-file src="src/ios/CardIOPaymentViewController.h" />
-        <header-file src="src/ios/CardIOPaymentViewControllerDelegate.h" />
-        <header-file src="src/ios/CardIOPlugin.h" />
-        <source-file src="src/ios/CardIOPlugin.m" compiler-flags="-fmodules" />
-        <header-file src="src/ios/CardIOUtilities.h" />
-        <header-file src="src/ios/CardIOView.h" />
-        <header-file src="src/ios/CardIOViewDelegate.h" />
-        <source-file src="libs/libCardIO.a" framework="true" compiler-flags="-fmodules" />
-        
-        <!-- link libraries for CardIO -->
-        <framework src="AudioToolbox.framework" />
-        <framework src="AVFoundation.framework" />
-        <framework src="CoreGraphics.framework" />
-        <framework src="CoreMedia.framework" />
-        <framework src="CoreVideo.framework" />
-        <framework src="Foundation.framework" />
-        <framework src="MobileCoreServices.framework" />
-        <framework src="OpenGLES.framework" />
-        <framework src="QuartzCore.framework" />
-        <framework src="Security.framework" />
-        <framework src="UIKit.framework" />
-        <framework src="libc++.dylib" />
     </platform>
 </plugin>
